@@ -1,0 +1,99 @@
+{{page-title "SeedVR2 Resolution Calculator"}}
+
+<div class="max-w-md mx-auto w-full">
+  {{!-- Back button --}}
+  <LinkTo @route="index" class="inline-flex items-center text-sm font-semibold text-neutral-400 hover:text-white mb-6 group transition-colors duration-200">
+    <svg class="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Back to Dashboard
+  </LinkTo>
+
+  {{!-- Calculator Card --}}
+  <div class="relative rounded-2xl border border-neutral-800 bg-neutral-900/40 backdrop-blur-xl p-8 shadow-2xl space-y-6 overflow-hidden">
+    {{!-- Background glow --}}
+    <div class="absolute -right-24 -top-24 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="space-y-2 border-b border-neutral-800 pb-4">
+      <h1 class="text-2xl font-bold tracking-tight text-neutral-100">SeedVR2 Calculator</h1>
+      <p class="text-xs text-neutral-400 font-medium">Calculate projection scaling ratios and pixel counts.</p>
+    </div>
+
+    {{!-- Form --}}
+    <div class="space-y-4">
+      <div>
+        <label for="width" class="block text-sm font-medium text-neutral-300 mb-1.5">Input Width</label>
+        <Input
+          id="width"
+          @type="number"
+          @value={{this.width}}
+          class="w-full bg-neutral-800/60 border border-neutral-700/60 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded-xl px-4 py-2.5 text-neutral-100 placeholder-neutral-500 transition-all duration-200"
+          placeholder="e.g. 1536"
+        />
+      </div>
+
+      <div>
+        <label for="height" class="block text-sm font-medium text-neutral-300 mb-1.5">Input Height</label>
+        <Input
+          id="height"
+          @type="number"
+          @value={{this.height}}
+          class="w-full bg-neutral-800/60 border border-neutral-700/60 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded-xl px-4 py-2.5 text-neutral-100 placeholder-neutral-500 transition-all duration-200"
+          placeholder="e.g. 267"
+        />
+      </div>
+
+      <div>
+        <label for="target" class="block text-sm font-medium text-neutral-300 mb-1.5">Target Short Edge (Resolution)</label>
+        <Input
+          id="target"
+          @type="number"
+          @value={{this.target}}
+          class="w-full bg-neutral-800/60 border border-neutral-700/60 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded-xl px-4 py-2.5 text-neutral-100 placeholder-neutral-500 transition-all duration-200"
+          placeholder="e.g. 2048"
+        />
+      </div>
+
+      <button
+        type="button"
+        {{on "click" this.calculate}}
+        class="w-full py-3 mt-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/20 active:scale-[0.98] transition-all duration-200"
+      >
+        Calculate
+      </button>
+    </div>
+
+    {{!-- Result Box --}}
+    <div class="rounded-xl bg-neutral-950/80 border border-neutral-800/80 p-5 space-y-3 font-mono text-sm">
+      <div class="flex justify-between items-center py-1 border-b border-neutral-900">
+        <span class="text-neutral-400">Shortest Edge:</span>
+        <span class="text-emerald-400 font-bold">{{this.resultShortEdge}} px</span>
+      </div>
+
+      <div class="flex justify-between items-center py-1 border-b border-neutral-900">
+        <span class="text-neutral-400">Scale Factor:</span>
+        <span class="text-emerald-400 font-bold">{{this.resultScale}}×</span>
+      </div>
+
+      <div class="flex justify-between items-center py-1 border-b border-neutral-900">
+        <span class="text-neutral-400">Expected Output:</span>
+        <span class="text-emerald-400 font-bold">{{this.resultOutWidth}} &times; {{this.resultOutHeight}}</span>
+      </div>
+
+      <div class="flex justify-between items-center py-1">
+        <span class="text-neutral-400">Megapixels:</span>
+        <span class="text-emerald-400 font-bold">{{this.resultMegapixels}} MP</span>
+      </div>
+    </div>
+
+    {{!-- Explanation Note --}}
+    <div class="flex items-start space-x-2 text-xs text-neutral-400 leading-relaxed bg-neutral-900/20 p-4 rounded-xl border border-neutral-800/40">
+      <svg class="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>
+        SeedVR2 scales the <b class="text-neutral-200">shortest edge</b> to the target resolution while preserving the aspect ratio.
+      </span>
+    </div>
+  </div>
+</div>
