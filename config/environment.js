@@ -4,7 +4,7 @@ module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'tools',
     environment,
-    rootURL: '/',
+    rootURL: '/tools/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -44,7 +44,7 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-    ENV.rootURL = '/';
+    ENV.rootURL = '/tools/';
     ENV.locationType = 'hash';
   }
 
